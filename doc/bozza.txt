@@ -1,0 +1,28 @@
+Bozza di soluzione.
+
+> 1. definisca una struttura opportuna per stati e transizioni
+
+TODO
+
+> 2. fornisca una opportuna rappresentazione delle regole SOS di CCS
+
+TODO
+
+> 3. verifichi che una data transizione in input sia derivabile dalle regole
+>    SOS
+
+TODO
+
+> 4. dato uno stato (ovvero un processo) calcoli tutte le transizioni
+>    possibili in uscita da quello stato
+
+TODO
+
+> 5. dati due stati S1 e S2 verifichi che S2 sia raggiungibile a partire da
+>    S1
+
+TODO
+
+> 6. dato uno stato S, determini il suo LTS associato
+
+TODO
