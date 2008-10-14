@@ -1,0 +1,22 @@
+			    Università di Bologna
+	  Primo progetto del corso di Modelli e Sistemi Concorrenti
+
+Progettare un programma che
+
+1. definisca una struttura opportuna per stati e transizioni
+
+2. fornisca una opportuna rappresentazione delle regole SOS di CCS
+
+3. verifichi se una data transizione in input è derivabile dalle regole SOS
+
+4. dato uno stato (ovvero un processo) calcoli tutte le transizioni possibili
+   in uscita da quello stato.
+
+5. dati due stati S1 e S2 verifichi se S2 sia raggiungibile a partire da S1.
+
+6. dato uno stato S, determini il suo LTS associato.
+
+Nei punti 5 e 6 si assuma che gli stati siano definiti con un sottoinsieme di
+CSS consistente solo da definizione di costante, prefisso, somma e nil.
+
+Nel punto 6 si assuma che non vengano dati in input stati infiniti.
