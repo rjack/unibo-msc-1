@@ -2,11 +2,28 @@ Bozza di soluzione.
 
 > 1. definisca una struttura opportuna per stati e transizioni
 
-TODO
+Stato definito da
+- nome
+- espressione ccs
+
+Transizione definita da
+- etichetta
+- nome stato di partenza
+- nome stato di arrivo
 
 > 2. fornisca una opportuna rappresentazione delle regole SOS di CCS
 
-TODO
+una funzione per ogni regola SOS
+ogni funzione prende in input una espressione CCS
+	se non è applicabile, ritorna NIL
+	altrimenti ritorna l'espressione deducibile
+
+una funzione inversa per ogni regola SOS
+prende in input una espressione CCS
+	se non è applicabile, ritorna NIL
+	altrimenti ritorna l'espressione nella premessa
+
+XXX occhio alle condizioni di contorno!
 
 > 3. verifichi che una data transizione in input sia derivabile dalle regole
 >    SOS
