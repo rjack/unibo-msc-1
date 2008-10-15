@@ -31,3 +31,19 @@
   dalla stringa data.
   Ritorna nil se non riesce, l'albero sintattico se riesce."
   nil)
+
+
+(defun ccs-expr-is-action (expr)
+  "Ritorna T se expr è un'etichetta di un'azione, il suo complementare tau;
+  NIL altrimenti"
+  nil)
+
+
+(defun ccs-expr-is-label (expr)
+  "Ritorna T se expr è un'etichetta di un'azione o il suo complementare; NIL
+  altrimenti" nil)
+
+
+(defun ccs-expr-is-process (expr)
+  "Ritorna T se expr è un processo; NIL altrimenti"
+  nil)
