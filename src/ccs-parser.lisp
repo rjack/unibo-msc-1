@@ -26,15 +26,19 @@
 ;; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-(defpackage :ritucci-msc-ccs-parser
-  (:use :common-lisp)
-  (:export ccs-parse
-	   ccs-expr-is-action
-	   ccs-expr-is-label
-	   ccs-expr-is-process))
+(defpackage #:ritucci-msc-ccs-parser
+  (:use #:common-lisp)
+  (:export #:parse
+	   #:is-action
+	   #:is-label
+	   #:is-process))
 
 
-(in-package :ritucci-msc-ccs-parser)
+(in-package #:ritucci-msc-ccs-parser)
+
+
+(defmacro string-is-lowercase (str)
+  `(string= (string-downcase ,str) ,str))
 
 
 (defun parse (text)
@@ -47,14 +51,19 @@
 (defun is-action (expr)
   "Ritorna T se expr è un'etichetta di un'azione, il suo complementare tau;
   NIL altrimenti"
-  nil)
+  (or (string= expr "&")
+      (is-label expr)))
 
 
 (defun is-label (expr)
   "Ritorna T se expr è un'etichetta di un'azione o il suo complementare; NIL
-  altrimenti" nil)
+  altrimenti"
+  (and (string-is-lowercase expr)
+       (string/= expr "&")))
 
 
 (defun is-process (expr)
   "Ritorna T se expr è un processo; NIL altrimenti"
-  nil)
+  (and (not (string-is-lowercase expr))
+       (not (is-label expr))
+       (not (is-action expr))))
