@@ -26,24 +26,35 @@
 ;; THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-(defun ccs-parse (text)
+(defpackage :ritucci-msc-ccs-parser
+  (:use :common-lisp)
+  (:export ccs-parse
+	   ccs-expr-is-action
+	   ccs-expr-is-label
+	   ccs-expr-is-process))
+
+
+(in-package :ritucci-msc-ccs-parser)
+
+
+(defun parse (text)
   "Accetta una stringa e tenta di costruire un albero sintattico a partire
   dalla stringa data.
   Ritorna nil se non riesce, l'albero sintattico se riesce."
   nil)
 
 
-(defun ccs-expr-is-action (expr)
+(defun is-action (expr)
   "Ritorna T se expr è un'etichetta di un'azione, il suo complementare tau;
   NIL altrimenti"
   nil)
 
 
-(defun ccs-expr-is-label (expr)
+(defun is-label (expr)
   "Ritorna T se expr è un'etichetta di un'azione o il suo complementare; NIL
   altrimenti" nil)
 
 
-(defun ccs-expr-is-process (expr)
+(defun is-process (expr)
   "Ritorna T se expr è un processo; NIL altrimenti"
   nil)
