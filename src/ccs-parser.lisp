@@ -28,14 +28,15 @@
 
 (defpackage #:ritucci-msc-ccs-parser
   (:use #:common-lisp #:regexp)
-  (:export #:parse
-	   #:is-action
-	   #:is-label
-	   #:is-process))
+  (:export #:parse))
 
 
 (in-package #:ritucci-msc-ccs-parser)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Public functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun parse (text)
   "Accetta una stringa e tenta di costruire un albero sintattico a partire
@@ -43,6 +44,10 @@
   Ritorna nil se non riesce, l'albero sintattico se riesce."
   nil)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Private functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun is-action (expr)
   "Ritorna T se expr è un'etichetta di un'azione, il suo complementare tau;

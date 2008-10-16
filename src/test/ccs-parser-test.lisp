@@ -1,10 +1,10 @@
 ;;;; ccs-parser-test.lisp
 
-(defpackage #:ritucci-msc-ccs-parser-test
-  (:use #:common-lisp #:ritucci-msc-ccs-parser #:lisp-unit))
+(defpackage #:ritucci-msc-ccs-parser
+  (:use #:common-lisp #:lisp-unit))
 
 
-(in-package #:ritucci-msc-ccs-parser-test)
+(in-package #:ritucci-msc-ccs-parser)
 
 
 (define-test is-action
