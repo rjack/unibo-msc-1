@@ -1,0 +1,66 @@
+ETICHETTA
+
+tutta minuscola, con un ! davanti quando complementata.
+
+	a
+	a1
+	input
+	!output2
+
+in prima battuta non è permessa la doppia complementazione: !!input è ERRATO.
+
+
+AZIONE
+
+come etichette, in più l'azione tau (handshake):
+
+	&
+
+
+PROCESSO
+
+Prima lettera maiuscola, altre indifferentemente minuscole o maiuscole.
+
+	Process
+	P
+	CM2
+	CS1
+
+
+PREFISSO
+
+(. azione Processo)
+
+
+COSTANTE
+
+(= Nome Processo)
+
+
+SCELTA
+
+(+ Processo Processo)
+
+
+CONCORRENZA
+
+(| Processo Processo)
+
+
+RESTRIZIONE
+
+(\ (etichetta etichietta etichetta etichetta) Processo)
+
+
+RIETICHETTAMENTO
+
+(* ((/ etichetta1 etichetta2) (/ etichetta3 etichetta4)) Processo)
+
+
+TRANSIZIONE
+
+Trattino, azione, trattino, maggiore:
+
+	-input->
+	-&->
+	-!output->
