@@ -54,7 +54,7 @@
 (defun is-label (expr)
   "Ritorna T se expr è un'etichetta di un'azione o il suo complementare; NIL
   altrimenti"
-  (cond ((match "^[a-z][a-z]*$" expr) t)
+  (cond ((match "^!\\?[a-z]\\{1,\\}$" expr) t)
 	(t nil)))
 
 
