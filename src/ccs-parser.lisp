@@ -27,7 +27,7 @@
 
 
 (defpackage #:ritucci-msc-ccs-parser
-  (:use #:common-lisp)
+  (:use #:common-lisp #:regexp)
   (:export #:parse
 	   #:is-action
 	   #:is-label
@@ -35,10 +35,6 @@
 
 
 (in-package #:ritucci-msc-ccs-parser)
-
-
-(defmacro string-is-lowercase (str)
-  `(string= (string-downcase ,str) ,str))
 
 
 (defun parse (text)
@@ -58,12 +54,11 @@
 (defun is-label (expr)
   "Ritorna T se expr è un'etichetta di un'azione o il suo complementare; NIL
   altrimenti"
-  (and (string-is-lowercase expr)
-       (string/= expr "&")))
+  (cond ((match "^[a-z][a-z]*$" expr) t)
+	(t nil)))
 
 
 (defun is-process (expr)
   "Ritorna T se expr è un processo; NIL altrimenti"
-  (and (not (string-is-lowercase expr))
-       (not (is-label expr))
-       (not (is-action expr))))
+  (cond ((match "^[A-Z][a-zA-Z]*$" expr) t)
+	(t nil)))
