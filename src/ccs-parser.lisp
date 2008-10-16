@@ -59,11 +59,11 @@
 (defun is-label (expr)
   "Ritorna T se expr è un'etichetta di un'azione o il suo complementare; NIL
   altrimenti"
-  (cond ((match "^!\\?[a-z]\\{1,\\}$" expr) t)
+  (cond ((match "^!\\?[a-z][a-z0-9]*$" expr) t)
 	(t nil)))
 
 
 (defun is-process (expr)
   "Ritorna T se expr è un processo; NIL altrimenti"
-  (cond ((match "^[A-Z][a-zA-Z]*$" expr) t)
+  (cond ((match "^[A-Z][a-zA-Z0-9]*$" expr) t)
 	(t nil)))

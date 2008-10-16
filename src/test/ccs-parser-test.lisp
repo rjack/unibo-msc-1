@@ -19,6 +19,12 @@
 	     (assert-true (is-label "!a"))
 	     (assert-true (is-label "label"))
 	     (assert-true (is-label "!label"))
+	     (assert-true (is-label "a1"))
+	     (assert-true (is-label "label6"))
+	     (assert-true (is-label "!a1"))
+	     (assert-true (is-label "!label6"))
+	     (assert-false (is-label "2"))
+	     (assert-false (is-label "!2"))
 	     (assert-false (is-label "!!a"))
 	     (assert-false (is-label "!a!"))
 	     (assert-false (is-label "a!"))
@@ -37,10 +43,15 @@
 
 (define-test is-process
 	     (assert-true (is-process "P"))
+	     (assert-true (is-process "P1"))
 	     (assert-true (is-process "PROCESS"))
+	     (assert-true (is-process "PROCESS1"))
 	     (assert-true (is-process "Process"))
 	     (assert-false (is-process "process"))
+	     (assert-false (is-process "process1"))
 	     (assert-false (is-process "pROCESS"))
+	     (assert-false (is-process "pROCESS1"))
+	     (assert-false (is-process "3"))
 	     (assert-false (is-process "!P")))
 
 
