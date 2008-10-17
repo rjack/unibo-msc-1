@@ -35,6 +35,15 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Parameters
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defparameter *label-pattern* "^!\\?[a-z][a-z0-9]*$")
+
+(defparameter *process-pattern* "^[A-Z][a-zA-Z0-9]*$")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Public functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -42,12 +51,21 @@
   "Accetta una stringa e tenta di costruire un albero sintattico a partire
   dalla stringa data.
   Ritorna nil se non riesce, l'albero sintattico se riesce."
-  nil)
+  (cond ((parse-transition text))
+	((parse-definition text))
+	((parse-choice text))
+	((parse-composition text))
+	((parse-prefixing text))
+	((parse-relabelling text))
+	((parse-restriction text))
+	(t nil)))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Private functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (defun is-action (expr)
   "Ritorna T se expr è un'etichetta di un'azione, il suo complementare tau;
@@ -59,11 +77,11 @@
 (defun is-label (expr)
   "Ritorna T se expr è un'etichetta di un'azione o il suo complementare; NIL
   altrimenti"
-  (cond ((match "^!\\?[a-z][a-z0-9]*$" expr) t)
+  (cond ((match *label-pattern* expr) t)
 	(t nil)))
 
 
 (defun is-process (expr)
   "Ritorna T se expr è un processo; NIL altrimenti"
-  (cond ((match "^[A-Z][a-zA-Z0-9]*$" expr) t)
+  (cond ((match *process-pattern* expr) t)
 	(t nil)))
