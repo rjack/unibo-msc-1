@@ -7,15 +7,6 @@
 (in-package #:ritucci-msc-ccs-parser)
 
 
-(define-test parse
-	     ; processo
-	     (assert-equal (parse ("P")) "P")
-	     (assert-equal (parse ("(P)")) '("P"))
-
-	     ; prefisso
-	     (assert-equal (parse ("a.P")) '(prefix "a" "P")))
-
-
 (define-test is-action
 	     (assert-true (is-action "&"))
 	     (assert-false (is-action "!&"))
