@@ -38,7 +38,7 @@
 ;; Parameters
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *label-pattern* "^!\\?[a-z][a-z0-9]*$")
+(defparameter *label-pattern* "^!\\{0,1\\}[a-z][a-z0-9]*$")
 
 (defparameter *process-pattern* "^[A-Z][a-zA-Z0-9]*$")
 
@@ -83,5 +83,6 @@
 
 (defun is-process (expr)
   "Ritorna T se expr è un processo; NIL altrimenti"
-  (cond ((match *process-pattern* expr) t)
+  (cond ((string= expr "0") t)
+	((match *process-pattern* expr) t)
 	(t nil)))
