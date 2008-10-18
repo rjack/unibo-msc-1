@@ -107,10 +107,10 @@
   nil)
 
 
-(defun parse-label (text) ; TODO
+(defun parse-label (text)
   "Tenta di costruire l'albero sintaticco di un'etichetta a partire da text;
   Ritorna l'albero sintattico se riesce, NIL se fallisce."
-  nil)
+  (if (is-label-name text) label nil)
 
 
 (defun is-action-name (text)
