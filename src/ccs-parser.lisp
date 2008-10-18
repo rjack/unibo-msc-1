@@ -114,14 +114,14 @@
 
 
 (defun is-action-name (text)
-  "Ritorna T se text è un'etichetta di un'azione, il suo complementar o tau;
+  "Ritorna T se text è un'etichetta di un'azione, il suo complementare o tau;
   NIL altrimenti"
   (or (string= text "&")
       (is-label-name text)))
 
 
 (defun is-label-name (text)
-  "Ritorna T se text èil nome di un'etichetta di un'azione o il suo
+  "Ritorna T se text è il nome di un'etichetta di un'azione o il suo
   complementare; NIL altrimenti"
   (cond ((match (full-pattern-of *label-pattern*) text) t)
 	(t nil)))
