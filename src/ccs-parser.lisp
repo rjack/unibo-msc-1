@@ -27,7 +27,7 @@
 
 
 (defpackage #:ritucci-msc-ccs-parser
-  (:use #:common-lisp #:regexp)
+  (:use #:common-lisp #:ext #:regexp)
   (:export #:parse))
 
 
@@ -38,10 +38,22 @@
 ;; Parameters
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defparameter *label-pattern* "^!\\{0,1\\}[a-z][a-z0-9]*$")
+(defparameter *label-pattern*
+  "!\\{0,1\\}[a-z][a-z0-9]*")
 
-(defparameter *process-pattern* "^[A-Z][a-zA-Z0-9]*$")
+(defparameter *process-pattern*
+  "[A-Z][a-zA-Z0-9]*")
 
+(defparameter *transition-pattern*
+  "\\(.\\{1,\\}\\) -\\(.\\{1,\\}\\)-> \\(.\\{1,\\}\\)")
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Parameters
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmacro full-pattern-of (pattern)
+  `(string-concat "^" ,pattern "$"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Public functions
@@ -58,8 +70,9 @@
 	((parse-prefixing text))
 	((parse-relabelling text))
 	((parse-restriction text))
+	((parse-process text))
+	((parse-label text))
 	(t nil)))
-
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -67,22 +80,37 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defun is-action (expr)
-  "Ritorna T se expr è un'etichetta di un'azione, il suo complementare tau;
+(defun parse-transition (text)
+  "Tenta di costruire l'albero sinttico di una transizione.
+  Ritorna l'albero se riesce, NIL altrimenti."
+  (multiple-value-bind
+    (whole-match left-match center-match right-match)
+    (match (full-pattern-of *transition-pattern*) text)
+
+    (if (and whole-match left-match center-match right-match)
+      ;; match-string solo per debug, bisogna chiamare ricorsivamente parse.
+      (list (match-string text left-match)
+	    (match-string text center-match)
+	    (match-string text right-match))
+      nil)))
+
+
+(defun is-action (text)
+  "Ritorna T se text è un'etichetta di un'azione, il suo complementar o tau;
   NIL altrimenti"
-  (or (string= expr "&")
-      (is-label expr)))
+  (or (string= text "&")
+      (is-label text)))
 
 
-(defun is-label (expr)
-  "Ritorna T se expr è un'etichetta di un'azione o il suo complementare; NIL
+(defun is-label (text)
+  "Ritorna T se text è un'etichetta di un'azione o il suo complementare; NIL
   altrimenti"
-  (cond ((match *label-pattern* expr) t)
+  (cond ((match (full-pattern-of *label-pattern*) text) t)
 	(t nil)))
 
 
-(defun is-process (expr)
-  "Ritorna T se expr è un processo; NIL altrimenti"
-  (cond ((string= expr "0") t)
-	((match *process-pattern* expr) t)
+(defun is-process (text)
+  "Ritorna T se text è un processo; NIL altrimenti"
+  (cond ((string= text "0") t)
+	((match (full-pattern-of *process-pattern*) text) t)
 	(t nil)))
