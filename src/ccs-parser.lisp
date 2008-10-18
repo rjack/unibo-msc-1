@@ -88,29 +88,46 @@
     (whole-match left-match center-match right-match)
     (match (full-pattern-of *transition-pattern*) text)
 
+    ; se la regexp ha fatto match, bisogna fare parsing delle sottoformule.
     (if (and whole-match left-match center-match right-match)
-      ;; match-string solo per debug, bisogna chiamare ricorsivamente parse.
-      (list (match-string text left-match)
-	    (match-string text center-match)
-	    (match-string text right-match))
+      (let ((left (parse-process (match-string text left-match)))
+	    (center (parse-label (match-string text center-match)))
+	    (right (parse-process (match-string text right-match))))
+	; se tutte le sottoformule sono state parsate correttamente,
+	; ritorniamo la loro lista, altrimenti nil
+	(if (and left center right)
+	  (list left center right)
+	  nil))
       nil)))
 
 
-(defun is-action (text)
+(defun parse-process (text) ; TODO
+  "Tenta di costruire l'albero sintaticco di un processo a partire da text;
+  Ritorna l'albero sintattico se riesce, NIL se fallisce."
+  nil)
+
+
+(defun parse-label (text) ; TODO
+  "Tenta di costruire l'albero sintaticco di un'etichetta a partire da text;
+  Ritorna l'albero sintattico se riesce, NIL se fallisce."
+  nil)
+
+
+(defun is-action-name (text)
   "Ritorna T se text è un'etichetta di un'azione, il suo complementar o tau;
   NIL altrimenti"
   (or (string= text "&")
-      (is-label text)))
+      (is-label-name text)))
 
 
-(defun is-label (text)
-  "Ritorna T se text è un'etichetta di un'azione o il suo complementare; NIL
-  altrimenti"
+(defun is-label-name (text)
+  "Ritorna T se text èil nome di un'etichetta di un'azione o il suo
+  complementare; NIL altrimenti"
   (cond ((match (full-pattern-of *label-pattern*) text) t)
 	(t nil)))
 
 
-(defun is-process (text)
+(defun is-process-name (text)
   "Ritorna T se text è un processo; NIL altrimenti"
   (cond ((string= text "0") t)
 	((match (full-pattern-of *process-pattern*) text) t)
