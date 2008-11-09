@@ -64,6 +64,7 @@
   "Accetta una stringa e tenta di costruire un albero sintattico a partire
   dalla stringa data.
   Ritorna nil se non riesce, l'albero sintattico se riesce."
+  ;; le chiamate seguono l'ordine di precedenza degli operatori.
   (cond ((parse-transition text))
 	((parse-definition text))
 	((parse-choice text))
