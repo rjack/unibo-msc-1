@@ -36,28 +36,34 @@
 ;; Classes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defclass ccs-action ()
-  ((text
-     :initarg :text
-     :initform (error "Should init text")
-     :reader form)))
+(defclass ccs-expression ())
+
+
+(defclass ccs-action (ccs-expression)
+;; TODO ricordare che "t" (tau) è un'azione!
+;; TODO ricordare che "!a" (a complementare) è un'azione e l'etichetta è "a"
 
 
 (defclass ccs-label (ccs-action))
 
 
-(defmethod to-string ((this ccs-label))
-  (form this))
+(defclass ccs-process (ccs-expression))
+;; TODO ricordare che "0" (nil) è un processo!
 
 
+(defclass ccs-prefix (ccs-process))
 
-;;; TODO expression
-;;; TODO prefix
-;;; TODO choice
-;;; TODO composition
-;;; TODO relabelling
-;;; TODO restriction
-;;; TODO definition
-;;; TODO process
-;;; TODO action
-;;; TODO tansaction
+
+(defclass ccs-relabeling (ccs-process))
+
+
+(defclass ccs-restriction (ccs-process))
+
+
+(defclass ccs-choice (ccs-process))
+
+
+(defclass ccs-composition (ccs-process))
+
+
+(defclass ccs-transition ())
