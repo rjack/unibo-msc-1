@@ -33,15 +33,47 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Macros
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defmacro if-all (test seq1 &body body)
+  `())
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Constants
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defconstant +label-name-characters+
+	     (string "abcdefghijklmnopqrstuvwxyz"))
+
+
+(defconstant +action-name-characters+ (string "@"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Classes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defclass ccs-expression ())
 
 
-(defclass ccs-action (ccs-expression)
+(defmethod is-valid (this ccs-label))
+
+
 ;; TODO ricordare che "t" (tau) è un'azione!
 ;; TODO ricordare che "!a" (a complementare) è un'azione e l'etichetta è "a"
+(defclass ccs-action (ccs-expression)
+  ((name
+     :initarg :name
+     :initform (error "name is missing")
+     :reader name)
+   (input
+     :initarg :input
+     :initform t
+     :reader is-input)))
+
+
+(defmethod initialize-instance :after (this ccs-action) &key
 
 
 (defclass ccs-label (ccs-action))
